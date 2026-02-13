@@ -190,12 +190,13 @@ export const About = () => {
                 color: '#555',
               }}
             >
-              Currently working at the{' '}
+              Currently working as{' '}
               <Box component="span" sx={{ color: '#ff8c00', fontWeight: 700 }}>
-                Centre for Energy Regulation & Energy Analytics Lab
+                Associate (Regulatory) at Power Foundation of India
               </Box>
-              , IIT Kanpur. Specialized in systems problem-solving, automation, regulatory compliance, and energy market
-              analysis with strong stakeholder engagement skills.
+              . Specializing in regulatory analysis, policy frameworks, renewable energy procurement, and compliance 
+              development. Focused on India's power sector transformation with expertise in systems problem-solving, 
+              automation, and stakeholder engagement.
             </Typography>
           </Box>
 
