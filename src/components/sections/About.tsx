@@ -2,12 +2,12 @@ import { Box, Container, Typography, Paper } from '@mui/material';
 import PolicyIcon from '@mui/icons-material/Policy';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
+import React from 'react';
 
 const StatCard = ({ label, desc }: { label: string; desc: string }) => (
   <Box
     sx={{
       p: 2.5,
-      background: 'white',
       borderRadius: '12px',
       border: '2px solid transparent',
       background: 'linear-gradient(135deg, rgba(0, 102, 204, 0.05) 0%, rgba(255, 140, 0, 0.05) 100%)',
@@ -37,7 +37,13 @@ const StatCard = ({ label, desc }: { label: string; desc: string }) => (
   </Box>
 );
 
-const ServiceCard = ({ icon: Icon, title, desc }: any) => (
+interface ServiceCardProps {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  desc: string;
+}
+
+const ServiceCard: React.FC<ServiceCardProps> = ({ icon: Icon, title, desc }) => (
   <Paper
     sx={{
       p: 3.5,
