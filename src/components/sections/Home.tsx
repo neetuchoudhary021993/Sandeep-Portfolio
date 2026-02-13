@@ -3,6 +3,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import EmailIcon from '@mui/icons-material/Email';
 import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
+import profilePhoto from '../../assets/Sandeep_photo.jpeg';
 
 export const Home = () => {
   return (
@@ -95,7 +96,7 @@ export const Home = () => {
                     },
                   }}
                   endIcon={<DownloadIcon />}
-                  href="/src/assets/Sandeep_8299596269.pdf"
+                  href="/Sandeep_8299596269.pdf"
                   download
                 >
                   Download Resume
@@ -179,7 +180,7 @@ export const Home = () => {
             >
               <Box
                 component="img"
-                src="/src/assets/Sandeep_photo.jpeg"
+                src={profilePhoto}
                 alt="Sandeep Kumar"
                 sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
