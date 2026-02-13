@@ -4,6 +4,9 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import EmailIcon from '@mui/icons-material/Email';
 import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
 import profilePhoto from '../../assets/Sandeep_photo.jpeg';
+import resumePDF from '../../assets/Sandeep_8299596269.pdf';
+
+
 
 export const Home = () => {
   return (
@@ -96,8 +99,8 @@ export const Home = () => {
                     },
                   }}
                   endIcon={<DownloadIcon />}
-                  href="/Sandeep_8299596269.pdf"
-                  download
+                  href={resumePDF}
+                  download="Sandeep_8299596269.pdf"
                 >
                   Download Resume
                 </Button>
@@ -166,8 +169,8 @@ export const Home = () => {
             </Box>
             <Box
               sx={{
-                display: { xs: 'none', md: 'flex' },
-                height: '450px',
+                display: 'flex',
+                height: { xs: '250px', md: '450px' },
                 background: 'rgba(255, 255, 255, 0.08)',
                 borderRadius: '20px',
                 alignItems: 'center',
