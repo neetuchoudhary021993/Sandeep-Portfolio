@@ -6,9 +6,9 @@ import SendIcon from '@mui/icons-material/Send';
 import { useState } from 'react';
 
 export const Contact = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', message: '', botcheck: '' });
   const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error' | null; message: string }>({ type: null, message: '' });
-
+const [loading, setLoading] = useState(false);
   const contactInfo = [
     {
       id: 'contact-email',
@@ -38,15 +38,55 @@ export const Contact = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitStatus({
-      type: 'success',
-      message: `Thank you, ${formData.name}! Your message has been received.`,
+  const handleFormSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  setLoading(true); // start loading
+
+  try {
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        access_key: import.meta.env.VITE_WEB3FORMS_ACCESS_KEY,
+
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+        botcheck: formData.botcheck,
+
+        subject: "New Contact Form Submission from Portfolio",
+        from_name: "Portfolio Contact Form",
+        replyto: formData.email,
+      }),
     });
-    setFormData({ name: '', email: '', message: '' });
-    setTimeout(() => setSubmitStatus({ type: null, message: '' }), 5000);
-  };
+
+    const result = await response.json();
+
+    if (result.success) {
+      setSubmitStatus({
+        type: "success",
+        message: `Thank you, ${formData.name}! Your message has been sent.`,
+      });
+      setFormData({ name: "", email: "", message: "", botcheck: "" });
+    } else {
+      setSubmitStatus({
+        type: "error",
+        message: "Something went wrong. Please try again.",
+      });
+    }
+  } catch (error) {
+    setSubmitStatus({
+      type: "error",
+      message: "Network error. Please try again.",
+    });
+  }
+
+  setLoading(false); // stop loading
+  setTimeout(() => setSubmitStatus({ type: null, message: "" }), 5000);
+};
 
   return (
     <Box
@@ -142,22 +182,29 @@ export const Contact = () => {
                 placeholder="Your message here..."
                 sx={{ '& .MuiOutlinedInput-root': { color: '#333' } }}
               />
-              <Button
-                type="submit"
-                variant="contained"
-                endIcon={<SendIcon />}
-                sx={{
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                  color: 'white',
-                  fontWeight: 'bold',
-                  py: 1.5,
-                }}
-              >
-                Send Message
-              </Button>
+              {/* hidden field */}
+              <TextField
+  name="botcheck"
+  sx={{ display: "none" }}
+/>
+             <Button
+  type="submit"
+  variant="contained"
+  endIcon={<SendIcon />}
+  disabled={loading}
+  sx={{
+    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    color: 'white',
+    fontWeight: 'bold',
+    py: 1.5,
+  }}
+>
+  {loading ? "Sending..." : "Send Message"}
+</Button>
             </Box>
           </Paper>
         </Box>
+
       </Container>
     </Box>
   );
