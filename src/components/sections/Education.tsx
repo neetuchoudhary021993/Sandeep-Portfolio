@@ -1,6 +1,7 @@
 import { Box, Container, Typography, Paper } from '@mui/material';
-import SchoolIcon from '@mui/icons-material/School';
-import UniversityIcon from '@mui/icons-material/AccountBalance';
+import MMMUT from '../../assets/MMMUT.jpeg';
+import RecSonbhadra from '../../assets/recsonbhadra_logo.jpeg';
+import PolytechnicDiploma from '../../assets/Diploma_polytechnic.png';
 
 const InstitutionIcon = ({ type }: { type: 'university' | 'college' | 'polytechnic' }) => {
   const getColor = () => {
@@ -10,7 +11,7 @@ const InstitutionIcon = ({ type }: { type: 'university' | 'college' | 'polytechn
       case 'college':
         return 'linear-gradient(135deg, #ff8c00 0%, #cc7000 100%)';
       case 'polytechnic':
-        return 'linear-gradient(135deg, #4caf50 0%, #388e3c 100%)';
+        return 'linear-gradient(135deg, #ffffff 0%, #003d99 100%)';
     }
   };
 
@@ -26,9 +27,16 @@ const InstitutionIcon = ({ type }: { type: 'university' | 'college' | 'polytechn
         justifyContent: 'center',
         color: 'white',
         fontSize: '2.5rem',
+        overflow: 'hidden',
       }}
     >
-      {type === 'university' ? <UniversityIcon /> : <SchoolIcon />}
+      {type === 'university' ? (
+        <img src={MMMUT} alt="MMMUT Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+      ) : type === 'college' ? (
+        <img src={RecSonbhadra} alt="Rajkiya Engineering College Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+      ) : (
+        <img src={PolytechnicDiploma} alt="Polytechnic Diploma Logo" style={{ width: '100%', height: '100%', objectFit: 'contain', padding: '4px' }} />
+      )}
     </Box>
   );
 };
@@ -108,8 +116,26 @@ export const Education = () => {
                 gap: { xs: 2, md: 3 },
                 mb: idx !== educations.length - 1 ? 4 : 0,
                 alignItems: 'flex-start',
+                position: 'relative',
               }}
             >
+              {/* Timeline line with enhanced styling */}
+              {idx !== educations.length - 1 && (
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    left: { xs: '27px', md: '32px' },
+                    top: '90px',
+                    width: '4px',
+                    height: 'calc(100% + 60px)',
+                    background: 'linear-gradient(180deg, #0066cc 0%, #ff8c00 100%)',
+                    borderRadius: '2px',
+                    boxShadow: '0 0 12px rgba(0, 102, 204, 0.3)',
+                    transition: 'all 0.3s ease',
+                  }}
+                />
+              )}
+
               {/* Icon */}
               <Box sx={{ pt: 1 }}>
                 <InstitutionIcon type={edu.type} />

@@ -1,53 +1,39 @@
 import { Box, Container, Typography, Paper } from '@mui/material';
-import BusinessIcon from '@mui/icons-material/Business';
-import EngineeringIcon from '@mui/icons-material/Engineering';
-import BoltIcon from '@mui/icons-material/Bolt';
+import PFI from '../../assets/powerfoundationofindia_logo.jpeg';
+import CER from '../../assets/cer_iit_kanpur_logo.jpeg';
+import UPRNN from '../../assets/uttar_pradesh_rajya_vidyut_utpadan_nigam_limited_logo.jpeg';
+import BHEL from '../../assets/bhel_1.png';
 
-const ExperienceIcon = ({ type }: { type: 'current' | 'engineer' | 'apprentice' | 'intern' }) => {
-  const iconProps = {
-    sx: {
-      fontSize: '3rem',
-      p: 1.5,
-      borderRadius: '12px',
-      color: 'white',
-    },
+const ExperienceIcon = ({ company }: { company: string }) => {
+  const getLogoSource = () => {
+    if (company.includes('Power Foundation')) return PFI;
+    if (company.includes('Centre for Energy')) return CER;
+    if (company.includes('BHEL')) return BHEL;
+    if (company.includes('UTTAR PRADESH')) return UPRNN;
+    return null;
   };
 
-  switch (type) {
-    case 'current':
-      return (
-        <Box
-          sx={{
-            ...iconProps.sx,
-            background: 'linear-gradient(135deg, #0066cc 0%, #003d99 100%)',
-          }}
-        >
-          <BoltIcon />
-        </Box>
-      );
-    case 'engineer':
-      return (
-        <Box
-          sx={{
-            ...iconProps.sx,
-            background: 'linear-gradient(135deg, #ff8c00 0%, #cc7000 100%)',
-          }}
-        >
-          <EngineeringIcon />
-        </Box>
-      );
-    default:
-      return (
-        <Box
-          sx={{
-            ...iconProps.sx,
-            background: 'linear-gradient(135deg, #4caf50 0%, #388e3c 100%)',
-          }}
-        >
-          <BusinessIcon />
-        </Box>
-      );
-  }
+  const logoSrc = getLogoSource();
+
+  return (
+    <Box
+      sx={{
+        width: '70px',
+        height: '70px',
+        borderRadius: '12px',
+        background: 'white',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+        border: '2px solid #e0e0e0',
+      }}
+    >
+      {logoSrc ? (
+        <img src={logoSrc} alt={company} style={{ width: '100%', height: '100%', objectFit: 'contain', padding: '8px' }} />
+      ) : null}
+    </Box>
+  );
 };
 
 export const Experience = () => {
@@ -136,29 +122,32 @@ export const Experience = () => {
               key={exp.id}
               sx={{
                 display: 'grid',
-                gridTemplateColumns: { xs: '80px 1fr', md: '100px 1fr' },
+                gridTemplateColumns: { xs: 'auto 1fr', md: '100px 1fr' },
                 gap: { xs: 2, md: 3 },
                 mb: idx !== experiences.length - 1 ? 4 : 0,
                 position: 'relative',
               }}
             >
-              {/* Timeline line */}
+              {/* Timeline line with enhanced styling */}
               {idx !== experiences.length - 1 && (
                 <Box
                   sx={{
                     position: 'absolute',
-                    left: { xs: '35px', md: '48px' },
-                    top: '80px',
-                    width: '2px',
-                    height: 'calc(100% + 40px)',
+                    left: { xs: '27px', md: '45px' },
+                    top: '90px',
+                    width: '4px',
+                    height: 'calc(100% + 60px)',
                     background: 'linear-gradient(180deg, #0066cc 0%, #ff8c00 100%)',
+                    borderRadius: '2px',
+                    boxShadow: '0 0 12px rgba(0, 102, 204, 0.3)',
+                    transition: 'all 0.3s ease',
                   }}
                 />
               )}
 
               {/* Icon */}
               <Box sx={{ display: 'flex', justifyContent: 'center', pt: 1 }}>
-                <ExperienceIcon type={exp.type} />
+                <ExperienceIcon company={exp.company} />
               </Box>
 
               {/* Content */}
